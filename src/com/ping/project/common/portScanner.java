@@ -1,11 +1,10 @@
+package com.ping.project.common;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class portScanner {
-	private Scanner sc;
 	public ArrayList <ipInfo> scanInfo = new ArrayList<ipInfo>();
 	
 	public void fScanPort (String ip){

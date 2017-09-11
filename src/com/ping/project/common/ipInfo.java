@@ -1,3 +1,4 @@
+package com.ping.project.common;
 import java.util.ArrayList;
 
 public class ipInfo {

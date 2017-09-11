@@ -1,3 +1,4 @@
+package com.ping.project.common;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -96,8 +97,15 @@ public class ipScanner {
 		System.out.println("Scanning..." + host);
 	}
 	
-	public String GenerateReport (){
+	public String GetJson (){
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(pScan.scanInfo);
+	}
+	
+	public String GenerateReportHTML (){
+		return "";
+	}
+	public String GenerateReport (){
+		return "";
 	}
 }
