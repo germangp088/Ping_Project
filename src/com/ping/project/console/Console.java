@@ -15,6 +15,6 @@ public class Console {
 	  	String input = s.next ();
         IPScanner ip = new IPScanner(ipInfo, true);
 	  	ip.fAnalizarEntrada(input);
-	  	System.out.println(new ReportsFactory(ipInfo).GenerateReport());
+	  	System.out.println(new ReportsFactory(ipInfo, false).GenerateReport());
     }
 }
