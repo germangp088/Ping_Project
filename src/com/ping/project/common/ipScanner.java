@@ -18,7 +18,6 @@ public class IPScanner {
 	}
 	
     public void fAnalizarEntrada (String input) throws IOException {
-    	//10.21.37.0/24
     	String [] splitInput = input.split("/");
     	String temp= splitInput[0];
     	String [] ipSplit = temp.split("\\.");

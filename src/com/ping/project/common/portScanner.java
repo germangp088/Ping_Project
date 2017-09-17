@@ -25,7 +25,7 @@ public class PortScanner {
 				host.ports.add(String.valueOf(current));
 			}
 			catch( IOException ioe ) {
-
+				//El puerto esta cerrado.
 			}
 		}
 	}
