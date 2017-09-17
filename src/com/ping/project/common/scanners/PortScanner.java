@@ -1,4 +1,4 @@
-package com.ping.project.common;
+package com.ping.project.common.scanners;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;

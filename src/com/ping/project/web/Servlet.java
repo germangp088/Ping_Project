@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ping.project.common.IPScanner;
+import com.ping.project.common.scanners.IPScanner;
 import com.ping.project.common.entities.IPInfo;
 import com.ping.project.common.helpers.ServerHelper;
 

@@ -1,6 +1,6 @@
 package com.ping.project.console;
 import java.util.Scanner;
-import com.ping.project.common.IPScanner;
+import com.ping.project.common.scanners.IPScanner;
 import com.ping.project.common.Reports;
 import com.ping.project.common.entities.IPInfo;
 
