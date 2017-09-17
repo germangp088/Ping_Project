@@ -1,7 +1,8 @@
-package com.ping.project.common;
+package com.ping.project.common.entities;
+
 import java.util.ArrayList;
 
-public class ipInfo {
-	public String ip;
+public class Host {
+	public String hostName;
 	public ArrayList<String> ports = new ArrayList<String>();
 }

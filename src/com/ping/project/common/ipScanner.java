@@ -4,12 +4,20 @@ import java.net.InetAddress;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ping.project.common.entities.Host;
+import com.ping.project.common.entities.IPInfo;
 
-public class ipScanner {
-
-	 portScanner pScan = new portScanner() ;
-    
-    public void fAnalizarEntrtada (String input) throws IOException {
+public class IPScanner {
+	private PortScanner _portScanner = new PortScanner();
+    private IPInfo _ipInfo;
+    private boolean _console;
+	public IPScanner(IPInfo ipInfo,boolean console)
+	{
+		_ipInfo = ipInfo;
+		_console = console;
+	}
+	
+    public void fAnalizarEntrada (String input) throws IOException {
     	//10.21.37.0/24
     	String [] splitInput = input.split("/");
     	String temp= splitInput[0];
@@ -18,30 +26,29 @@ public class ipScanner {
     	
     	switch (Integer.parseInt(splitInput[1])){
     	case 8: 
-    		System.out.println("Clase A");
+    		_ipInfo.clase = "Clase A";
     		subnet = ipSplit[0];
     		procesarMascaraA (subnet); 
     		break;
     	case 16:
-    		System.out.println("Clase B");
+    		_ipInfo.clase = "Clase B";
     		subnet = ipSplit[0]+"."+ipSplit[1];
     		procesarMascaraB (subnet); 
     		break;
     	case 24:
-    		System.out.println("Clase C");
+    		_ipInfo.clase = "Clase C";
     		subnet = ipSplit[0]+"."+ipSplit[1]+"."+ipSplit[2];
     		procesarMascaraC (subnet); 
     		break;
     	default: 
-    		System.out.println("Default");
+    		_ipInfo.clase = "Default";
     		break;
     	}
     }
     
     public void procesarMascaraA(String subnet) throws IOException
     {
-                
-        System.out.println("Scanning...A...");
+    	scanningAdvice('A');
         for (int i = 1; i <= 255; i++)
         {
 	        for (int j = 0; j <= 255; j++)
@@ -55,13 +62,11 @@ public class ipScanner {
 		        }
 	        }
         }
-        System.out.println("FIN");
     }
 	
 	public void procesarMascaraB(String subnet) throws IOException
     {
-                
-        System.out.println("Scanning...B...");
+    	scanningAdvice('B');   
         for (int i = 1; i <= 255; i++)
         {
 	        for (int j = 0; j <= 255; j++)
@@ -72,40 +77,38 @@ public class ipScanner {
 	        	}
 	        }
         }
-        System.out.println("FIN");
     }
 	
 	public void procesarMascaraC(String subnet) throws IOException
     {
-                
-        System.out.println("Scanning...C...");
+    	scanningAdvice('C');
         for (int i = 1; i < 255; i++)
         {
             String host = subnet + "." + i;
             revisarHosts (host);
         }
-        System.out.println("FIN");
     }
 	
-	private  void revisarHosts (String host) throws IOException {
-		int timeout = 50;
-		if (InetAddress.getByName(host).isReachable(timeout))
-        {
-            System.out.println(host + " - activa");
-            pScan.fScanPort (host);
-        }
-		System.out.println("Scanning..." + host);
+	private void scanningAdvice(char letter)
+	{
+		if (_console) {
+            System.out.println("Scanning..." + letter + "...");
+		}
 	}
 	
+	private  void revisarHosts (String hostName) throws IOException {
+		int timeout = 50;
+		if (InetAddress.getByName(hostName).isReachable(timeout))
+        {
+            Host host = new Host();
+            host.hostName = hostName;
+            _portScanner.scan(host, _console);
+            _ipInfo.hosts.add(host);
+        }
+	}
+
 	public String GetJson (){
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(pScan.scanInfo);
-	}
-	
-	public String GenerateReportHTML (){
-		return "";
-	}
-	public String GenerateReport (){
-		return "";
+        return gson.toJson(_ipInfo);
 	}
 }
