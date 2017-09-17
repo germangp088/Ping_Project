@@ -1,11 +1,11 @@
-package com.ping.project.common;
+package com.ping.project.common.factories;
 
 import com.ping.project.common.entities.Host;
 import com.ping.project.common.entities.IPInfo;
 
-public class Reports {
+public class ReportsFactory {
     private IPInfo _ipInfo;
-	public Reports(IPInfo ipInfo)
+	public ReportsFactory(IPInfo ipInfo)
 	{
 		_ipInfo = ipInfo;
 	}
