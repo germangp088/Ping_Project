@@ -22,7 +22,7 @@ public class IPScanner {
     	String temp= splitInput[0];
     	String [] ipSplit = temp.split("\\.");
     	String subnet = "";
-    	
+    	_ipInfo.ip = input;
     	switch (Integer.parseInt(splitInput[1])){
     	case 8: 
     		_ipInfo.clase = "Clase A";
@@ -84,7 +84,7 @@ public class IPScanner {
         for (int i = 1; i < 255; i++)
         {
             String host = subnet + "." + i;
-            revisarHosts (host);
+            revisarHosts(host);
         }
     }
 	
@@ -102,7 +102,9 @@ public class IPScanner {
             Host host = new Host();
             host.hostName = hostName;
             _portScanner.scan(host, _console);
-            _ipInfo.hosts.add(host);
+            if (host.ports.size() > 0) {
+                _ipInfo.hosts.add(host);
+			}
         }
 	}
 

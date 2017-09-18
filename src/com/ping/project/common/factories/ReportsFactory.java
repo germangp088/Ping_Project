@@ -11,10 +11,10 @@ public class ReportsFactory {
 		_html = html;
 		_ipInfo = ipInfo;
 		if (_html) {
-			_line = System.lineSeparator();
+			_line = "<br />";
 		}
 		else {
-			_line = "<br />";
+			_line = System.lineSeparator();
 		}
 	}
 	
@@ -35,6 +35,11 @@ public class ReportsFactory {
 				addLine(str, "", "", "", "</ul>");
 			}
 		}
+		
+		if (_ipInfo.hosts.size() == 0) {
+			addLine(str, verifiTag("<label>"), "No hay puertos abiertos en la ip seleccionada.", "", verifiTag("</label>"));
+		}
+		
 		return str.toString();
 	}
 	

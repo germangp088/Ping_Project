@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ping.project.common.scanners.IPScanner;
 import com.ping.project.common.entities.IPInfo;
+import com.ping.project.common.factories.ReportsFactory;
 import com.ping.project.common.helpers.ServerHelper;
 
 @SuppressWarnings("serial")
@@ -23,7 +24,7 @@ public class Servlet  extends HttpServlet
         String ip = request.getParameter("ip");
         IPScanner ipScanner = new IPScanner(ipInfo, false);
         ipScanner.fAnalizarEntrada(ip);
-        response.getWriter().println(ipScanner.GetJson());
+        response.getWriter().println(new ReportsFactory(ipInfo, true).GenerateReport());
     }
 	
 	public static void main(String[] args) {
