@@ -20,11 +20,34 @@ public class Client extends AbstractHandler
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-        response.getWriter().println("<form name=\"jpForm\" method=\"post\" action=\"http://localhost:8473/Scanner\">");
+        
+        response.getWriter().println("<script>");
+        response.getWriter().println("function myFunction() {");
+        response.getWriter().println("    document.getElementById(\"cargando\").style.display = \"block\";");
+        response.getWriter().println("    document.getElementById(\"jpForm\").style.display = \"none\";");
+        response.getWriter().println("}");
+        response.getWriter().println("</script>");
+        
+        response.getWriter().println("<form id=\"jpForm\" name=\"jpForm\" method=\"post\" action=\"http://localhost:8473/Scanner\">");
+        response.getWriter().println("<label>Clase A: IP/8</label> <br/>");
+        response.getWriter().println("<label>Clase B: IP/16</label> <br/>");
+        response.getWriter().println("<label>Clase C: IP/24</label> <br/>");
+        response.getWriter().println("<label>Custom 32: IP/32</label> <br/>");
+                
         response.getWriter().println("<label>Ingresar ip/mascara:</label>");
         response.getWriter().println("<input type=\"text\" name=\"ip\"/> <br/>");
-        response.getWriter().println("<input type=\"submit\" value=\"Enviar\" />");
+        
+        response.getWriter().println("<label>Puerto menor:</label>");
+        response.getWriter().println("<input type=\"text\" name=\"lowPort\"/> <br/>");
+
+        response.getWriter().println("<label>Puerto mayor:</label>");
+        response.getWriter().println("<input type=\"text\" name=\"highPort\"/> <br/>");
+        
+        response.getWriter().println("<input type=\"submit\" value=\"Enviar\" onClick=\"myFunction()\" />");
         response.getWriter().println("</form>");
+        
+        response.getWriter().println("<label id=\"cargando\" style=\"display:none\">Cargando...</label>");
+        
     }
 
     public static void main(String[] args) throws Exception

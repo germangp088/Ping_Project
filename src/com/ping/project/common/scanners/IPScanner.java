@@ -4,17 +4,19 @@ import java.net.InetAddress;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ping.project.common.entities.Configuration;
 import com.ping.project.common.entities.Host;
 import com.ping.project.common.entities.IPInfo;
 
 public class IPScanner {
-	private PortScanner _portScanner = new PortScanner();
+	private PortScanner _portScanner;
     private IPInfo _ipInfo;
     private boolean _console;
-	public IPScanner(IPInfo ipInfo,boolean console)
+	public IPScanner(IPInfo ipInfo,boolean console, Configuration configuration)
 	{
 		_ipInfo = ipInfo;
 		_console = console;
+		_portScanner = new PortScanner(configuration);
 	}
 	
     public void fAnalizarEntrada (String input) throws IOException {
@@ -38,6 +40,11 @@ public class IPScanner {
     		_ipInfo.clase = "Clase C";
     		subnet = ipSplit[0]+"."+ipSplit[1]+"."+ipSplit[2];
     		procesarMascaraC (subnet); 
+    		break;
+    	case 32: 
+    		_ipInfo.clase = "Custom 32";
+    		subnet = ipSplit[0]+"."+ipSplit[1]+"."+ipSplit[2]+"."+ipSplit[3];
+    		revisarHosts(subnet);
     		break;
     	default: 
     		_ipInfo.clase = "Default";

@@ -40,6 +40,14 @@ public class ReportsFactory {
 			addLine(str, verifiTag("<label>"), "No hay puertos abiertos en la ip seleccionada.", "", verifiTag("</label>"));
 		}
 		
+
+		addLine(str, verifiTag("</br><label><strong>"), "Profesor.", "", verifiTag("</strong></label>"));
+		addLine(str, verifiTag("<label>"), "German Basisty.", "", verifiTag("</label></br>"));
+		addLine(str, verifiTag("<label><strong>"), "Alumnos.", "", verifiTag("</strong></label>"));
+		addLine(str, verifiTag("<label>"), "German Dario.", "", verifiTag("</label>"));
+		addLine(str, verifiTag("<label>"), "Rodrigo Vallaro.", "", verifiTag("</label>"));
+		addLine(str, verifiTag("<label>"), "Leonel Rapagnani.", "", verifiTag("</label>"));
+		
 		return str.toString();
 	}
 	
