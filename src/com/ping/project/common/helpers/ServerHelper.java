@@ -19,7 +19,7 @@ public class ServerHelper {
             server.destroy();
             }
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void connect(int port, Class className, String path)
 	{

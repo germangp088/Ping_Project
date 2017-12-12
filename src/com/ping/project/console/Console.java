@@ -1,28 +1,35 @@
 package com.ping.project.console;
-import java.util.Scanner;
-import com.ping.project.common.scanners.IPScanner;
-import com.ping.project.common.entities.Configuration;
-import com.ping.project.common.entities.IPInfo;
-import com.ping.project.common.factories.ReportsFactory;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import com.ping.project.common.helpers.AgentHelper;
 
 public class Console {
-	private static Scanner s;
 
 	public static void main(String[] args) throws Exception
     {
-		IPInfo ipInfo = new IPInfo();
-	  	s = new Scanner (System.in);
-	  	System.out.println("Ingresar ip/mascara:");
-	  	String input = s.next ();
-	  	System.out.println("Puerto menor:");
-	  	String lowPort = s.next ();
-	  	System.out.println("Puerto mayor:");
-	  	String highPort = s.next ();
-	  	Configuration configuration = new Configuration(Integer.parseInt(lowPort) ,
-				Integer.parseInt(highPort));
-	  	
-        IPScanner ip = new IPScanner(ipInfo, true, configuration);
-	  	ip.fAnalizarEntrada(input);
-	  	System.out.println(new ReportsFactory(ipInfo, false).GenerateReport());
+		String dir = System.getProperty("user.dir");
+		File folder = new File(dir+"/Plugins");
+		File[] listOfJars = folder.listFiles();
+		for (File jar : listOfJars) {
+			
+			String result = AgentHelper.getRuntimeValue(dir+"/Plugins/"+jar.getName().toString());
+			URL serverUrl = new URL("http://localhost:8473/Scanner?result="+URLEncoder.encode(result,"UTF-8"));
+			HttpURLConnection urlConnection = (HttpURLConnection)serverUrl.openConnection();
+
+			urlConnection.setDoOutput(true);
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Conten-Type", "application/json");
+
+			BufferedWriter httpRequestBodyWriter = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+			httpRequestBodyWriter.write("result =" + result.toString());
+			urlConnection.getInputStream();
+			urlConnection.disconnect();
+		}
+		
     }
 }
